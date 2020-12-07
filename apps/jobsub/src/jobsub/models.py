@@ -18,8 +18,8 @@
 from builtins import str
 import logging
 
-from django.core import urlresolvers
 from django.db import models
+from django.urls import resolvers
 from django.utils.translation import ugettext_lazy as _
 
 from desktop.lib.parameterization import find_parameters, bind_parameters
@@ -98,7 +98,7 @@ class OozieAction(models.Model):
   reference. See
   https://docs.djangoproject.com/en/dev/topics/db/models/#multi-table-inheritance
   """
-  PARAM_FIELDS = ( )    # Nothing is parameterized by default
+  PARAM_FIELDS = ()    # Nothing is parameterized by default
 
   # This allows the code to easily figure out which subclass to access
   action_type = models.CharField(max_length=64, blank=False)

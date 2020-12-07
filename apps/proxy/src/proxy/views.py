@@ -31,8 +31,9 @@ import re
 from urllib.request import Request, urlopen
 from urllib.parse import urlencode, urlparse, urlunparse
 
-from django.core import urlresolvers
 from django.http import HttpResponse
+from django.urls import resolvers
+
 from desktop.lib.exceptions import MessageException
 
 from proxy import conf
@@ -64,7 +65,7 @@ def check_blacklist(host, port, path):
   # "/forbidden/path" (regex).
   has_trailing_slash = path.endswith('/')
   path_elems = path.split('/')
-  path_elems = [ p for p in path_elems if p ]
+  path_elems = [p for p in path_elems if p]
   canon_url = "%s:%s/%s" % (host, port, '/'.join(path_elems))
   if has_trailing_slash:
     canon_url += '/'
@@ -92,7 +93,7 @@ def proxy(request, host, port, path):
 
   # The tuple here is: (scheme, netloc, path, params, query, fragment).
   # We don't support params or fragment.
-  url = urlunparse((u'http', "%s:%d" % (host,port),
+  url = urlunparse((u'http', "%s:%d" % (host, port),
                     path, 
                     None, 
                     str(request.META.get("QUERY_STRING")),
